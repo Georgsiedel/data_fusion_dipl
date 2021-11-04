@@ -11,11 +11,11 @@ recipient <- read.csv(paste(daten,"/Ergebnisse/3_recipient_5k.csv", sep = ""), r
 
 ### 8. Test und Auswertung RF-Modell
 
-#Loeschen der ersten Spalte, die automatisch hinzugef�gt wird
+#Loeschen der ersten Spalte, die automatisch hinzugefügt wird
 donor <- donor[, -1]
 recipient <- recipient[, -1]
 
-# 8.1 Erstellung Variablen, Funktionen und Kontigenztabellen f�r Verteilungsauswertung
+# 8.1 Erstellung Variablen, Funktionen und Kontigenztabellen für Verteilungsauswertung
 
 # 8.1.1 Erstellung Pearson's C Funktion
 
@@ -24,11 +24,11 @@ calc.cc <- function(x)
   x <- matrix(as.numeric(x), dim(x)) #wandelt Tabelle in Matrix um 
   
   # CC - Pearson's C
-  chisq <- chisq.test(x, correct = FALSE)$statistic #Berechnung Chi² Wert
+  chisq <- chisq.test(x, correct = FALSE)$statistic #Berechnung ChiÂ² Wert
   C <- sqrt(chisq / (chisq + sum(x))) #Berechnung C
   
   # Sakoda's adjusted Pearson's C
-  k <- min(dim(x)) #Berechnungsschritt für die Berechnung von C*
+  k <- min(dim(x)) #Berechnungsschritt fÃ¼r die Berechnung von C*
   SC <- C / sqrt((k - 1) / k) #Berechnung von C*
   
   #Werte von C und C* werden in einer Liste gespeichert
@@ -38,7 +38,7 @@ calc.cc <- function(x)
   CClist # Liste wird bei Anwendung der Funktion ausgegeben
 }
 
-# 8.1.2 leere Vektoren für for Schleife
+# 8.1.2 leere Vektoren fÃ¼r for Schleife
 
 #Level 1
 vec.accuracy         <- vector()
@@ -130,7 +130,7 @@ comp.lv4.zx24.chi <- vector()
 
 # 8.2 Training und Test des Modells
 
-#for-Schleife f�r multiple Wiederholungen der Berechnung aller Kennwerte
+#for-Schleife für multiple Wiederholungen der Berechnung aller Kennwerte
 
 for (w in 1:1) {
   
@@ -274,7 +274,7 @@ AccidentType <- as.factor(recipient$AccidentType)
 prediction <- predict(model, recipient)
 
 #Erstellen des Fusionsdatensatzes mit richtigem und vorhergesagtem AccidentType sowie Aufprall_Hindernis
-#Wiedereinf�gen der spezifischen Hilfsvariable Aufprall_Hindernis
+#Wiedereinfügen der spezifischen Hilfsvariable Aufprall_Hindernis
 recipient <- mutate(recipient, AccidentType_pred = prediction)
 #write.csv2(recipient, paste(daten,"/ergebnisse/8_fusionsdatensatz_rf.csv", sep = ""))
 
@@ -284,9 +284,9 @@ accuracy <- confusionMatrix(prediction, AccidentType)$overall["Accuracy"]
 print(accuracy)
 print(confusionMatrix(prediction, AccidentType)$byClass)
 
-#8.5 Erstellung Variablen f�r die Verteilungsauswertung
+#8.5 Erstellung Variablen für die Verteilungsauswertung
 
-#leere Vektoren für for Schleife
+#leere Vektoren fÃ¼r for Schleife
 
 #Level 1
 vec.accuracy         <- vector()
@@ -380,11 +380,11 @@ comp.lv4.zx25.chi <- vector()
 
 # 8.5.1 Erstellung der decoded-Variablen zur Auswertung der bedingten Verteilungen
 
-#bestehende Variablen, die nicht oder nicht sinnvoll dekodierbar sind und in bin�rer Form ausgewertet werden:
+#bestehende Variablen, die nicht oder nicht sinnvoll dekodierbar sind und in binärer Form ausgewertet werden:
 # Urban, Fahrtrichtung_angegeben, Slippery, Crosswalk, Darkness, Kind, schwerverletzt_1, Runaway, TrafficLights, ObstacleOffRoad, Bicycle, Bus, Car, Truck, Tram, Pedestrian, Motorcycle, Car
 # insgesamt 18
 
-#Variablen, die ohne �berschneidung dekodiert werden k�nnen:
+#Variablen, die ohne Überschneidung dekodiert werden können:
 donor$Uhrzeit <- with(donor, ifelse(abdreizehnuhrdreissig == "1", "abdreizehnuhrdreissig", ifelse(abfuenfuhrdreissig == "1", "abfuenfuhrdreissig", ifelse(absechsuhrdreissig == "1", "absechsuhrdreissig", ifelse(abnulluhr == "1", "abnulluhr", "andere")))))
 recipient$Uhrzeit <- with(recipient, ifelse(abdreizehnuhrdreissig == "1", "abdreizehnuhrdreissig", ifelse(abfuenfuhrdreissig == "1", "abfuenfuhrdreissig", ifelse(absechsuhrdreissig == "1", "absechsuhrdreissig", ifelse(abnulluhr == "1", "abnulluhr", "andere")))))
 
@@ -403,9 +403,9 @@ recipient$sachschaden <- with(recipient, ifelse(bis5000euro == "1", "bis5000euro
 donor$strassenart <- with(donor, ifelse(autobahn == "1", "autobahn", ifelse(kreisstrasse == "1", "kreisstrasse", ifelse(landesstrasse == "1", "landesstrasse", ifelse(bundesstrasse == "1", "bundesstrasse", "andere")))))
 recipient$strassenart <- with(recipient, ifelse(autobahn == "1", "autobahn", ifelse(kreisstrasse == "1", "kreisstrasse", ifelse(landesstrasse == "1", "landesstrasse", ifelse(bundesstrasse == "1", "bundesstrasse", "andere")))))
 
-#Variablen, die nur mit �berschneidung dekodiert werden k�nnen:
+#Variablen, die nur mit Überschneidung dekodiert werden können:
 #Charakt. Unfallstelle und Unfallursache
-#Kategorien des Attributes werden bei doppelten oder max. dreifachen Eintr�gen zuf�llig ausgew�hlt , um die Verteilung nicht zu beeintr�chtigen. Anzahl der Instanzen mit mehr als einer Kategorie <10%
+#Kategorien des Attributes werden bei doppelten oder max. dreifachen Einträgen zufällig ausgewählt , um die Verteilung nicht zu beeinträchtigen. Anzahl der Instanzen mit mehr als einer Kategorie <10%
 
 donor$char_unfallstelle <- with(donor, ifelse(Driveway == "0" & Curve == "0" & Slope == "0" & Roundabout == "0" & Intersection == "0", "andere", "0"))  
 recipient$char_unfallstelle <- with(recipient, ifelse(Driveway == "0" & Curve == "0" & Slope == "0" & Roundabout == "0" & Intersection == "0", "andere", "0"))
@@ -537,7 +537,7 @@ for (i in 1:nrow(recipient)) {
   }
 }
 
-# 8.5.2 Erstellung Kontigenztabellen f�r Ebene 4
+# 8.5.2 Erstellung Kontigenztabellen für Ebene 4
 
 spender.tab.z <- xtabs(~AccidentType, data = donor)
 z.spender_xz1 <- xtabs(~AccidentType
@@ -604,9 +604,9 @@ d.gesamt.data = rbind(orig_recipient, donor)
 
 # 8.6 Auswertung der gemeinsamen Verteilung (Ebene 2)
 
-# 8.6.1 Vergleich der Gesamtverteilung von fXZ, Vorhergesagte Variable im recipient vs. tats�chliche Variable im recipient
+# 8.6.1 Vergleich der Gesamtverteilung von fXZ, Vorhergesagte Variable im recipient vs. tatsächliche Variable im recipient
 
-# Kontingenztabellen für beide Verteilungen 
+# Kontingenztabellen fÃ¼r beide Verteilungen 
 synth.tab.xz1 <-  xtabs(~AccidentType_pred
                         +unfallursache
                         +char_unfallstelle
@@ -675,11 +675,11 @@ lv2.xz1 <- comp.prop(p1 = synth.tab.xz1, p2 = orig.tab.xz1, n1 = nrow(recipient)
 lv2.xz2 <- comp.prop(p1 = synth.tab.xz2, p2 = orig.tab.xz2, n1 = nrow(recipient), n2 = NULL, ref = TRUE)
 lv2.xz3 <- comp.prop(p1 = synth.tab.xz3, p2 = orig.tab.xz3, n1 = nrow(recipient), n2 = NULL, ref = TRUE)
 
-# 8.6.2 Vergleich der Gesamtverteilung von fXZ, Vorhergesagte Variable im recipient vs. tats�chliche Variable im Gesamtdatensatz
+# 8.6.2 Vergleich der Gesamtverteilung von fXZ, Vorhergesagte Variable im recipient vs. tatsächliche Variable im Gesamtdatensatz
 
-# für die Kontingenztabelle der Verteilung mit der fusionierten Variable im fuisonierten Datensatz wird die synth.tab.xyz verwendet
+# fÃ¼r die Kontingenztabelle der Verteilung mit der fusionierten Variable im fuisonierten Datensatz wird die synth.tab.xyz verwendet
 
-#Kontingenztabelle für Verteilung mit originaler Variable uart im zusammengefügten Datensatz 
+#Kontingenztabelle fÃ¼r Verteilung mit originaler Variable uart im zusammengefÃ¼gten Datensatz 
 gesamt.tab.xz1 <- xtabs(~AccidentType
                         +unfallursache
                         +char_unfallstelle
@@ -719,14 +719,14 @@ lv2.gesamt.xz3 <- comp.prop(p1 = synth.tab.xz3, p2 = gesamt.tab.xz3, n1 = nrow(r
 
 # 8.6.3 Vergleich der Verteilung von fz
 
-#Kontingenztabelle für beide Verteilungen
+#Kontingenztabelle fÃ¼r beide Verteilungen
 synth.tab.z <-  xtabs(~AccidentType_pred, data = recipient)
 orig.tab.z <-  xtabs(~AccidentType, data = recipient)
 
 #Vergleich der Verteilungen mit der Funktion von D'Orazio
 lv2.z <- comp.prop(p1 = synth.tab.z, p2 = orig.tab.z, n1 = nrow(recipient), n2 = NULL, ref = TRUE)
 
-# 8.6.4 Vergleich der tats�chlichen Gesamtverteilungen von donor und recipient als Ma�stab der Ungebnauigkeit des Datensplits bzw. Randomness der HD
+# 8.6.4 Vergleich der tatsächlichen Gesamtverteilungen von donor und recipient als Maßstab der Ungebnauigkeit des Datensplits bzw. Randomness der HD
 
 lv2.xz1.orig <- comp.prop(p1 = z.spender_xz1, p2 = orig.tab.xz1, n1 = nrow(recipient), n2 = NULL, ref = TRUE)
 lv2.xz2.orig <- comp.prop(p1 = z.spender_xz2, p2 = orig.tab.xz2, n1 = nrow(recipient), n2 = NULL, ref = TRUE)
@@ -736,8 +736,8 @@ lv2.xz3.orig <- comp.prop(p1 = z.spender_xz3, p2 = orig.tab.xz3, n1 = nrow(recip
 
 # 8.7.1 Vergleich der Gesamtverteilung von fXZ vom fusionierten Datensatz mit dem Spenderdatensatz --> real testbar
 
-#Tabellen für Spender siehe oben 
-#Tabellen f�r recipient siehe Level2
+#Tabellen fÃ¼r Spender siehe oben 
+#Tabellen für recipient siehe Level2
 #Kontingentabelle fusionierte Datei
 
 #Vergleich der Randverteilung
@@ -747,16 +747,16 @@ lv4.xz3 <- comp.prop(p1 = synth.tab.xz3, p2 = z.spender_xz3, n1 = nrow(recipient
 
 #8.7.2 Vergleich der Randverteilung von Z (AccidentType) --> imputierte Variable
 
-#Tabellen für Spender siehe oben 
-#Tabellen f�r recipient siehe Level2
+#Tabellen fÃ¼r Spender siehe oben 
+#Tabellen für recipient siehe Level2
 #Kontingentabelle fusionierte Datei
 
 #Vergleich der Randverteilung
 lv4.z <- comp.prop(p1 = synth.tab.z, p2 = spender.tab.z, n1 = nrow(recipient), n2 = NULL, ref = TRUE)
 
-# 8.7.3 Vergleich der Verteilung von fXZ --> jeweils für jede XZ Kombination 
+# 8.7.3 Vergleich der Verteilung von fXZ --> jeweils fÃ¼r jede XZ Kombination 
 
-#Kontingentabellen für Verteilungen mit imputierter Variable 
+#Kontingentabellen fÃ¼r Verteilungen mit imputierter Variable 
 
 synth.tab.zx1 <- xtabs(~AccidentType_pred+unfallursache, data = recipient)
 synth.tab.zx2 <- xtabs(~AccidentType_pred+char_unfallstelle, data = recipient)
@@ -813,7 +813,7 @@ lv4.zx23 <- comp.prop(p1 = synth.tab.zx23, p2 = spender.tab.zx23, n1 = nrow(reci
 lv4.zx24 <- comp.prop(p1 = synth.tab.zx24, p2 = spender.tab.zx24, n1 = nrow(recipient), n2 = NULL, ref = TRUE)
 lv4.zx25 <- comp.prop(p1 = synth.tab.zx25, p2 = spender.tab.zx25, n1 = nrow(recipient), n2 = NULL, ref = TRUE)
 
-# 8.8 Speichern der multiplen Durchl�ufe als Ergebnis in Vektoren und Ausgabe
+# 8.8 Speichern der multiplen Durchläufe als Ergebnis in Vektoren und Ausgabe
 
 # 8.8.1 Erhalt der einzelnen Werte 
 
@@ -958,10 +958,10 @@ print("ENDE Simulationsdurchlauf")
 
 # 8.9 Zusammenfassung in Dataframes
 
-#die Fusion wird k mal durchgeführt und dafür werden jedes mal verschieden Kennwerte berechnet (s.o)
+#die Fusion wird k mal durchgefÃ¼hrt und dafÃ¼r werden jedes mal verschieden Kennwerte berechnet (s.o)
 #Zusammenfassung derErgebnisse in dataframes  
 
-# Ebene 1: gibt die Anzahl an,  Wie oft die Werte der fusionierten Variable mit der vorhandenen Variable im Spenderdatensatz überein stimmen?
+# Ebene 1: gibt die Anzahl an,  Wie oft die Werte der fusionierten Variable mit der vorhandenen Variable im Spenderdatensatz Ã¼berein stimmen?
 df.Ebene1 <- data.frame(vec.accuracy)
 
 #Ebene 2:
@@ -976,7 +976,7 @@ print(df.Ebene1)
 print(df.Ebene2)
 print(df.Ebene4)
 
-#Sicherung der Zahlen für evtl. Nachbearbeitungen
+#Sicherung der Zahlen fÃ¼r evtl. Nachbearbeitungen
 
 #saveRDS(df.Ebene1, paste(daten,"/Ergebnisse/8_df_Ebene1_rf.rds", sep = ""))
 #saveRDS(df.Ebene2, paste(daten,"/Ergebnisse/8_df_Ebene2_rf.rds", sep = ""))
