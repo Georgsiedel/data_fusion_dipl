@@ -22,10 +22,10 @@ sachsen_sel <- read.csv(paste(daten,"/ergebnisse/1_Vorbereitung_teil1.csv", sep 
 sachsen_sel$Datum <- sachsen_sel$Datum - 43465
 
 # siehe Plotanalyse, 3 Teile, Winter, Sommerpause und Rest. Sommerpause Sommerferien und die Woche vorher. Winterzeit die letzen 2 und die ersten 5 Wochen.
-# Diese Einteilung kann nicht unüberprüft für andere Jahre übernommen werden, da dort die Wintertage oder Sommerferienzeiten die Statistik beeinflussen.
+# Diese Einteilung kann nicht unÃ¼berprÃ¼ft fÃ¼r andere Jahre Ã¼bernommen werden, da dort die Wintertage oder Sommerferienzeiten die Statistik beeinflussen.
 sachsen_sel$Datum <- fct_explicit_na(cut(sachsen_sel$Datum, breaks = c(0,35,182,231,350,366), labels = c("Winterzeit","Sonstige","Sommerpause","Sonstige","Winterzeit")), "keine Angabe")
 
-#Encoding zu 2 Dummy-Spalten für 3 Klassen, Sonstige werden weggelassen wegen redundanter Information.
+#Encoding zu 2 Dummy-Spalten fÃ¼r 3 Klassen, Sonstige werden weggelassen wegen redundanter Information.
 sachsen_sel$Winterzeit <- with(sachsen_sel, ifelse(Datum == "Winterzeit", "1", "0"))
 sachsen_sel$Sommerpause <- with(sachsen_sel, ifelse(Datum == "Sommerpause", "1", "0"))
 sachsen_sel <- select(sachsen_sel, -Datum)
@@ -38,7 +38,7 @@ sachsen_sel$Zeit <- sachsen_sel$Zeit * 24
 
 sachsen_sel$Zeit <- fct_explicit_na(cut(sachsen_sel$Zeit, breaks = c(0,4,5.5,6.5,13.5,18,20.5,24), labels = c("0-4","4-5.30","5.30-6.30","6.30-13.30","13.30-18","18-20.30","20.30-24")), "keine Angabe")
 
-#Encoding zu 6 Dummy-Spalten für 7 Klassen (zur Weggelassenen gehört dann auch die Null dazu).
+#Encoding zu 6 Dummy-Spalten fÃ¼r 7 Klassen (zur Weggelassenen gehÃ¶rt dann auch die Null dazu).
 sachsen_sel$abnulluhr <- with(sachsen_sel, ifelse(Zeit == "0-4", "1", "0"))
 sachsen_sel$abvieruhr <- with(sachsen_sel, ifelse(Zeit == "4-5.30", "1", "0"))
 sachsen_sel$abfuenfuhrdreissig <- with(sachsen_sel, ifelse(Zeit == "5.30-6.30", "1", "0"))
@@ -49,7 +49,7 @@ sachsen_sel <- select(sachsen_sel, -Zeit)
 
 ### 3.3 Wochentag
 
-#Encoding zu 2 Dummy-Spalten für 3 Klassen
+#Encoding zu 2 Dummy-Spalten fÃ¼r 3 Klassen
 sachsen_sel$Samstag <- with(sachsen_sel, ifelse(WoTag == "Sa", "1", "0"))
 sachsen_sel$Sonntag <- with(sachsen_sel, ifelse(WoTag == "So", "1", "0"))
 sachsen_sel <- select(sachsen_sel, -WoTag)
@@ -61,7 +61,7 @@ sachsen_sel <- select(sachsen_sel, -WoTag)
 ### 3.8 Altersstruktur
 
 #Eindeutige Identifikation zwei besonderer gruppen bei Age1, siehe Splits und Plot
-#Age2 sehr ähnlich mit vernachlässigbaren Schnittmengen, daher kombination mit logischem oder
+#Age2 sehr Ã¤hnlich mit vernachlÃ¤ssigbaren Schnittmengen, daher kombination mit logischem oder
 
 as.character(sachsen_sel$Age1)
 as.character(sachsen_sel$Age2)
@@ -69,22 +69,22 @@ as.character(sachsen_sel$Age2)
 sachsen_sel$Kind <- with(sachsen_sel, ifelse(Age1 == "1" | Age2 == "1" | Age1 == "2" | Age2 == "2" | Age1 == "3" | Age2 == "3" | Age1 == "4" | Age2 == "4" | Age1 == "5" | Age2 == "5" | Age1 == "6" | Age2 == "6" | Age1 == "7" | Age2 == "7" | Age1 == "8" | Age2 == "8" | Age1 == "9" | Age2 == "9" | Age1 == "10" | Age2 == "10" | Age1 == "11" | Age2 == "11" | Age1 == "12" | Age2 == "12" | Age1 == "13" | Age2 == "13" | Age1 == "14" | Age2 == "14", "1", "0"))
 sachsen_sel$Jugendlich <- with(sachsen_sel, ifelse(Age1 == "15" | Age2 == "15" | Age1 == "16" | Age2 == "16" | Age1 == "17" | Age2 == "17", "1", "0"))
 
-#Löschen der Originalvariable Age1, 0 (welches fast immer eine Fehlangabe wegen Fahrerflucht ist) wird damit wie der restliche Schnitt gehandelt
-#Löschen der dritten  Altersvariablen, da sie ähnliches ausdrückt aber wegen Fehldaten weniger signifikant sind
+#LÃ¶schen der Originalvariable Age1, 0 (welches fast immer eine Fehlangabe wegen Fahrerflucht ist) wird damit wie der restliche Schnitt gehandelt
+#LÃ¶schen der dritten  Altersvariablen, da sie Ã¤hnliches ausdrÃ¼ckt aber wegen Fehldaten weniger signifikant sind
 sachsen_sel <- select(sachsen_sel, -Age1, -Age2, -Age3)
 
 ### 3.9 Schadensschwere
 
-#Kombinationsfunktionen haben nicht den gewünschten effekt gehabt. Einzelne Klassifizierung
+#Kombinationsfunktionen haben nicht den gewÃ¼nschten effekt gehabt. Einzelne Klassifizierung
 
-# 3.9.1 Todesfälle
+# 3.9.1 TodesfÃ¤lle
 
-#Dummy Varialbe, nur 2 Fälle mit 2 Toten
+#Dummy Varialbe, nur 2 FÃ¤lle mit 2 Toten
 sachsen_sel$Fatalities <- with(sachsen_sel, ifelse(Fatalities == 1 | Fatalities == 2, "1", "0"))
 
 # 3.9.2 Schwerverletzte
 
-#Über 3 Schwerverletzte sind Daten mit wenig Systematik und mit sehr geringer Anzahl
+#Ãœber 3 Schwerverletzte sind Daten mit wenig Systematik und mit sehr geringer Anzahl
 sachsen_sel$schwerverletzt_1 <- with(sachsen_sel, ifelse(SeriousInjuries == 1, "1", "0"))
 sachsen_sel$Schwerverletzt_2bis3 <- with(sachsen_sel, ifelse(SeriousInjuries == 2 | SeriousInjuries == 3, "1", "0"))
 sachsen_sel$Schwerverletzt_ab3 <- with(sachsen_sel, ifelse(SeriousInjuries > 3, "1", "0"))
@@ -92,7 +92,7 @@ sachsen_sel <- select(sachsen_sel, -SeriousInjuries)
 
 # 3.9.3 Leichtverletzte
 
-#Über 4 Leichtverletzte sind Daten mit wenig Systematik und mit sehr geringer Anzahl
+#Ãœber 4 Leichtverletzte sind Daten mit wenig Systematik und mit sehr geringer Anzahl
 sachsen_sel$leichtverletzt_1 <- with(sachsen_sel, ifelse(LightInjuries == 1, "1", "0"))
 sachsen_sel$leichtverletzt_2bis4 <- with(sachsen_sel, ifelse(LightInjuries == 2 | LightInjuries == 3 | LightInjuries == 4, "1", "0"))
 sachsen_sel$leichtverletzt_ab4 <- with(sachsen_sel, ifelse(LightInjuries > 4, "1", "0"))
@@ -100,7 +100,7 @@ sachsen_sel <- select(sachsen_sel, -LightInjuries)
 
 # 3.9.4 Beteiligtenzahl 
 
-#Über 5 Beteiligte sind Daten mit wenig Systematik und mit sehr geringer Anzahl
+#Ãœber 5 Beteiligte sind Daten mit wenig Systematik und mit sehr geringer Anzahl
 sachsen_sel$beteiligte_1 <- with(sachsen_sel, ifelse(Involved == 1, "1", "0"))
 sachsen_sel$beteiligte_3bis5 <- with(sachsen_sel, ifelse(Involved == 3 | Involved == 4 | Involved == 5, "1", "0"))
 sachsen_sel$beteiligte_ab5 <- with(sachsen_sel, ifelse(Involved > 5, "1", "0"))
@@ -110,7 +110,7 @@ sachsen_sel <- select(sachsen_sel, -Involved)
 
 sachsen_sel$Damage <- fct_explicit_na(cut(sachsen_sel$Damage, breaks = c(-1,1000,3000,5000,8000,16000,100000), labels = c("bis1000","bis3000","bis5000","bis8000","bis16000","rest")), "keine Angabe")
 
-#Encoding zu 5 Dummy-Spalten für 6 Klassen
+#Encoding zu 5 Dummy-Spalten fÃ¼r 6 Klassen
 sachsen_sel$bis1000euro <- with(sachsen_sel, ifelse(Damage == "bis1000", "1", "0"))
 sachsen_sel$bis3000euro <- with(sachsen_sel, ifelse(Damage == "bis3000", "1", "0"))
 sachsen_sel$bis5000euro <- with(sachsen_sel, ifelse(Damage == "bis5000", "1", "0"))
@@ -127,7 +127,7 @@ sachsen_sel <- select(sachsen_sel, -Fahrtrichtung)
 
 # 3.11.1 RoadType
 
-#Weglassen der Gemeindestraße wegen redundanter Information
+#Weglassen der GemeindestraÃŸe wegen redundanter Information
 sachsen_sel$autobahn <- with(sachsen_sel, ifelse(RoadType == "A", "1", "0"))
 sachsen_sel$bundesstrasse <- with(sachsen_sel, ifelse(RoadType == "B", "1", "0"))
 sachsen_sel$landesstrasse <- with(sachsen_sel, ifelse(RoadType == "L", "1", "0"))
@@ -142,7 +142,7 @@ sachsen_sel$unfallart_2 <- with(sachsen_sel, ifelse(CollisionType == "Zusammenst
 sachsen_sel$unfallart_3 <- with(sachsen_sel, ifelse(CollisionType == "Zusammenstoss mit seitlich in gleicher Richtung fahrendem Fahrzeug", "1", "0"))
 sachsen_sel$unfallart_4 <- with(sachsen_sel, ifelse(CollisionType == "Zusammenstoss mit entgegenkommendem Fahrzeug", "1", "0"))
 sachsen_sel$unfallart_5 <- with(sachsen_sel, ifelse(CollisionType == "Zusammenstoss mit einbiegendem/kreuzendem Fahrzeug", "1", "0"))
-sachsen_sel$unfallart_6 <- with(sachsen_sel, ifelse(CollisionType == "Zusammenstoss zwischen Fahrzeug und FussgÃ¤nger", "1", "0"))
+sachsen_sel$unfallart_6 <- with(sachsen_sel, ifelse(CollisionType == "Zusammenstoss zwischen Fahrzeug und FussgÃƒÂ¤nger", "1", "0"))
 sachsen_sel$unfallart_7 <- with(sachsen_sel, ifelse(CollisionType == "Aufprall auf Fahrbahnhindernis", "1", "0"))
 sachsen_sel$unfallart_8 <- with(sachsen_sel, ifelse(CollisionType == "Abkommen von Fahrbahn nach rechts", "1", "0"))
 sachsen_sel$unfallart_9 <- with(sachsen_sel, ifelse(CollisionType == "Abkommen von Fahrbahn nach links", "1", "0"))
@@ -160,10 +160,10 @@ sachsen_sel <- select(sachsen_sel, -BadView, -BadSigns)
 
 # 3.12.3 Unfalltyp
 
-#Achtung!: Der Name von Unfallart 4 wurde in der Excel "Vorbereitung_teil1" manuell durch "Ueberschreiten-Unfall (UeS)" ersetzt, da sonst kryptische Zeichen nicht gelesen werden können!
-#Entsprechend der hier eingetragene geänderte Name
+#Achtung!: Der Name von Unfallart 4 wurde in der Excel "Vorbereitung_teil1" manuell durch "Ueberschreiten-Unfall (UeS)" ersetzt, da sonst kryptische Zeichen nicht gelesen werden kÃ¶nnen!
+#Entsprechend der hier eingetragene geÃ¤nderte Name
 
-sachsen_sel$AccidentType <- with(sachsen_sel, ifelse(AccidentType == "Sonstiger Unfall (SO)", "7", ifelse(AccidentType == "Fahrunfall (F)", "1", ifelse(AccidentType == "Unfall durch ruhenden Verkehr (RV)", "5", ifelse(AccidentType == "Unfall im LÃ¤ngsverkehr (LV)", "6", ifelse(AccidentType == "Einbiegen/Kreuzen-Unfall (EK)", "3", ifelse(AccidentType == "Ueberschreiten-Unfall (UeS)", "4", ifelse(AccidentType == "Abbiegeunfall (AB)", "2", "0"))))))))
+sachsen_sel$AccidentType <- with(sachsen_sel, ifelse(AccidentType == "Sonstiger Unfall (SO)", "7", ifelse(AccidentType == "Fahrunfall (F)", "1", ifelse(AccidentType == "Unfall durch ruhenden Verkehr (RV)", "5", ifelse(AccidentType == "Unfall im LÃƒÂ¤ngsverkehr (LV)", "6", ifelse(AccidentType == "Einbiegen/Kreuzen-Unfall (EK)", "3", ifelse(AccidentType == "Ueberschreiten-Unfall (UeS)", "4", ifelse(AccidentType == "Abbiegeunfall (AB)", "2", "0"))))))))
 
 write.csv2(sachsen_sel, paste(daten,"/ergebnisse/2_Vorbereitung_teil2.csv", sep = ""))
 
