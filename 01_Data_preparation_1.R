@@ -16,23 +16,23 @@ daten <- "E:/Documents/Unfalldaten/euska_sachsen"
 sachsenvisumsafety <- read.csv(paste(daten,"/euska_sachsen_2019_visumsafety.csv", sep = ""), row.names = NULL, sep = ";")
 sachsen_normal <- read.csv(paste(daten,"/euska_sachsen_2019.csv", sep = ""), row.names = NULL, sep = ";")
 
-#Teil 1: Offensichtliches Löschen und Hinzufügen von Features.
+#Teil 1: Offensichtliches LÃ¶schen und HinzufÃ¼gen von Features.
 
-#Löschen aller Größen, die nicht aussagekräftig oder nicht übertragbar sind (IDs, ortsspezifische Angaben, Zusatzinformationen)
+#LÃ¶schen aller GrÃ¶ÃŸen, die nicht aussagekrÃ¤ftig oder nicht Ã¼bertragbar sind (IDs, ortsspezifische Angaben, Zusatzinformationen)
 sachsen_sel <- rename(sachsenvisumsafety)
-sachsen_sel <- select(sachsen_sel, -Longitude, -ï..AccidentID, -Latitude, -Direction, -Office, -City, -ZIP, -RoadID, -RoadName, -RoadName2, -Location, -Sketch, - Description, - Notes, -Image, -Attachment)
+sachsen_sel <- select(sachsen_sel, -Longitude, -Ã¯..AccidentID, -Latitude, -Direction, -Office, -City, -ZIP, -RoadID, -RoadName, -RoadName2, -Location, -Sketch, - Description, - Notes, -Image, -Attachment)
 
-#Löschen aller Größen, die nicht nicht interpretierbar sind, zu viele leere Felder enthalten oder klar redundant sind (z.B. accident Type encoded, Kategorie)
+#LÃ¶schen aller GrÃ¶ÃŸen, die nicht nicht interpretierbar sind, zu viele leere Felder enthalten oder klar redundant sind (z.B. accident Type encoded, Kategorie)
 sachsen_sel <- select(sachsen_sel, -AccidentCost, -SpeedLimit, - Hazard, -Category, -CollisionCode, -Type1, -Type2, -Type3, -Type4, -Type5, -Type6, -IndividualReason, -LicenseAge1, -Offence1, -LicenseAge2, -Offence2, -LicenseAge3, -Offence3, -Vehicle1, -Vehicle2, -Vehicle3)
 
-#Ergänzen von Wochentag, Fahrtrichtung und Hindernisaufprall aus anderem Export, richtig formatiertes Tagesdatum und Tageszeit
+#ErgÃ¤nzen von Wochentag, Fahrtrichtung und Hindernisaufprall aus anderem Export, richtig formatiertes Tagesdatum und Tageszeit
 sachsen_sel2 <- select(sachsen_normal, WoTag, Fahrtrichtung, Datum, Zeit, AH)
 sachsen_sel2 <- rename(sachsen_sel2, Aufprall_Hindernis = AH)
 sachsen_sel <- select(sachsen_sel, -Date, -Time)
 sachsen_sel <- cbind(sachsen_sel, sachsen_sel2)
 #print(sachsen_sel)
 
-#Auswahl der Hauptinformationen und schreiben der neuen csv (csv2 für deutsche Trennversion mit Semikolons, für Excel interpretierbar)
+#Auswahl der Hauptinformationen und schreiben der neuen csv (csv2 fÃ¼r deutsche Trennversion mit Semikolons, fÃ¼r Excel interpretierbar)
 write.csv2(sachsen_sel, paste(daten,"/ergebnisse/1_Vorbereitung_teil1.csv", sep = ""))
 
 
