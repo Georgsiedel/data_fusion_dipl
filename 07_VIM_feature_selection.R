@@ -12,7 +12,7 @@ daten <- "E:/Documents/Unfalldaten/euska_sachsen"
 donor <- read.csv(paste(daten,"/Ergebnisse/3_donor_20k.csv", sep = ""), row.names = NULL, sep = ";")
 recipient <- read.csv(paste(daten,"/Ergebnisse/3_recipient_5k.csv", sep = ""), row.names = NULL, sep = ";")
 
-#Loeschen der ersten Spalte, die automatisch hinzugefügt wird
+#Loeschen der ersten Spalte, die automatisch hinzugefÃ¼gt wird
 donor <- donor[, -1]
 donor <- select(donor, -Aufprall_Hindernis) #Aufprall Hindernis ist spezifische Variable
 recipient <- recipient[, -1]
@@ -114,7 +114,7 @@ for(x in c(0:12)) {
   donor <- donor[, -(1:5)]  
 }
 
-#Mit 74 bis zu 14 wichtigsten Features in 5er Abständen reduziert
+#Mit 74 bis zu 14 wichtigsten Features in 5er AbstÃ¤nden reduziert
 
 end_time <- Sys.time()
 
@@ -128,7 +128,7 @@ dotplot(results)
 donor <- read.csv(paste(daten,"/Ergebnisse/3_donor_20k.csv", sep = ""), row.names = NULL, sep = ";")
 recipient <- read.csv(paste(daten,"/Ergebnisse/3_recipient_5k.csv", sep = ""), row.names = NULL, sep = ";")
 
-#Loeschen der ersten Spalte, die automatisch hinzugefügt wird
+#Loeschen der ersten Spalte, die automatisch hinzugefÃ¼gt wird
 donor <- donor[, -1]
 recipient <- recipient[, -1]
 
