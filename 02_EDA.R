@@ -16,20 +16,20 @@ daten <- "E:/Documents/Unfalldaten/euska_sachsen"
 sachsen_sel <- read.csv(paste(daten,"/ergebnisse/1_Vorbereitung_teil1.csv", sep = ""), row.names = NULL, sep = ";")
 
 
-##### 2. EDA und entsprechende Analyse bestimmter Größen
+##### 2. EDA und entsprechende Analyse bestimmter GrÃ¶ÃŸen
 
 ### 2.1 Analyse Datum im Jahr
 
 #Datum auf 1 bis 365 Jahrestage umwandeln
 #sachsen_sel$Datum <- sachsen_sel$Datum - 43465
 
-# 2.1.1 Balkendiagramm relative Häufigkeit Unfalltyp über Jahreswochen normiert
+# 2.1.1 Balkendiagramm relative HÃ¤ufigkeit Unfalltyp Ã¼ber Jahreswochen normiert
 
 #sachsen_sel$Datum <- cut_width(sachsen_sel$Datum, 7, boundary = 1)
 #ggplot(data = sachsen_sel, aes(x = Datum, color = AccidentType, fill = AccidentType)) +
 #geom_bar(mapping = aes(), position = "fill")
 
-# 2.1.2 Dichtefunktion Unfalltypen über Jahr (kontinuierlich), normiert und transparent
+# 2.1.2 Dichtefunktion Unfalltypen Ã¼ber Jahr (kontinuierlich), normiert und transparent
 
 #ggplot(data = sachsen_sel, aes(x = Datum, y = AccidentType, color = AccidentType, fill = AccidentType)) +
 #geom_density_ridges(alpha = 0.3, scale = 50)
@@ -41,34 +41,34 @@ sachsen_sel <- read.csv(paste(daten,"/ergebnisse/1_Vorbereitung_teil1.csv", sep 
 #as.numeric_version(sachsen_sel$Zeit) 
 #sachsen_sel$Zeit <- sachsen_sel$Zeit * 24
 
-# 2.2.1 Balkendiagramm relative Häufigkeit Unfalltyp über Uhrzeit normiert, diskret nach halben Stunden
+# 2.2.1 Balkendiagramm relative HÃ¤ufigkeit Unfalltyp Ã¼ber Uhrzeit normiert, diskret nach halben Stunden
 
 #sachsen_sel$Zeit <- cut_interval(sachsen_sel$Zeit, 48, boundary = 0, center = 0.25)
 #ggplot(data = sachsen_sel, aes(x = Zeit, color = AccidentType, fill = AccidentType)) +
 #geom_bar(mapping = aes(), position = "fill")
 
-# 2.2.2 Dichtefunktion Unfalltypen über Uhrzeit (kontinuierlich), normiert und transparent
+# 2.2.2 Dichtefunktion Unfalltypen Ã¼ber Uhrzeit (kontinuierlich), normiert und transparent
 
 #ggplot(data = sachsen_sel, aes(x = Zeit, y = AccidentType, color = AccidentType, fill = AccidentType)) +
 #geom_density_ridges(alpha = 0.3, scale = 1000)
 
 ### 2.3 Analyse Wochentag
 
-# 2.3.1 Balkendiagramm relative Häufigkeit Unfalltyp über Uhrzeit normiert, diskret nach halben Stunden
+# 2.3.1 Balkendiagramm relative HÃ¤ufigkeit Unfalltyp Ã¼ber Uhrzeit normiert, diskret nach halben Stunden
 
 #ggplot(data = sachsen_sel, aes(x = WoTag, color = AccidentType, fill = AccidentType)) +
 #geom_bar(mapping = aes(), position = "fill")
 
 ### 2.4 Analyse aller Beteiligten Fahrzeugarten
 
-# 2.4.1 Balkendiagramm zur Analyse von Gemeinsamkeiten bei großen Beteiligten Fahrzeugen
+# 2.4.1 Balkendiagramm zur Analyse von Gemeinsamkeiten bei groÃŸen Beteiligten Fahrzeugen
 
 #sachsen_sel$dickekarren <- with(sachsen_sel, ifelse(Truck == "1", "Truck", ifelse(Bus == "1", "Bus", ifelse(Tram == "1", "Tram", ifelse(Train == "1", "Train", "0")))))
 #ggplot(data = sachsen_sel, aes(x = dickekarren, color = AccidentType, fill = AccidentType)) +
 #geom_bar(mapping = aes(), position = "fill")
 #sachsen_sel$dickekarren <- select(sachsen_sel, -dickekarren)
 
-# 2.4.2 Balkendiagramm zur Analyse von Gemeinsamkeiten bei Zweirädern und Fußgängern
+# 2.4.2 Balkendiagramm zur Analyse von Gemeinsamkeiten bei ZweirÃ¤dern und FuÃŸgÃ¤ngern
 
 #sachsen_sel$kleineteilnehmer <- with(sachsen_sel, ifelse(Pedestrian == "1", "Pedestrian", ifelse(Bicycle == "1", "Bicycle", ifelse(Motorcycle == "1", "Motorcycle", "0"))))
 #ggplot(data = sachsen_sel, aes(x = kleineteilnehmer, color = AccidentType, fill = AccidentType)) +
@@ -84,9 +84,9 @@ sachsen_sel <- read.csv(paste(daten,"/ergebnisse/1_Vorbereitung_teil1.csv", sep 
 #geom_bar(mapping = aes(), position = "fill")
 #sachsen_sel$dickekarren <- select(sachsen_sel, -unfallort)
 
-### 2.6 Analyse des Straßentyps
+### 2.6 Analyse des StraÃŸentyps
 
-# 2.6.1 Balkendiagramm zur Analyse des Straßentyps
+# 2.6.1 Balkendiagramm zur Analyse des StraÃŸentyps
 
 #ggplot(data = sachsen_sel, aes(x = RoadType, color = AccidentType, fill = AccidentType)) +
 #geom_bar(mapping = aes(), position = "fill")
@@ -109,17 +109,17 @@ sachsen_sel <- read.csv(paste(daten,"/ergebnisse/1_Vorbereitung_teil1.csv", sep 
 
 ### 2.8 Analyse Altersstruktur
 
-# 2.8.1 Balkendiagramm relative Häufigkeit Unfalltyp über Altersgruppen normiert, diskret nach 5 Lebensjahren
+# 2.8.1 Balkendiagramm relative HÃ¤ufigkeit Unfalltyp Ã¼ber Altersgruppen normiert, diskret nach 5 Lebensjahren
 
 #ggplot(data = sachsen_sel, aes(x = Age1, color = AccidentType, fill = AccidentType)) +
 #geom_bar(mapping = aes(), position = "fill")
 
-# 2.8.2 Dichtefunktion Unfalltypen über Uhrzeit (kontinuierlich), normiert und transparent
+# 2.8.2 Dichtefunktion Unfalltypen Ã¼ber Uhrzeit (kontinuierlich), normiert und transparent
 
 #ggplot(data = sachsen_sel, aes(x = Age1, y = AccidentType, color = AccidentType, fill = AccidentType)) +
 #geom_density_ridges(alpha = 0.3, scale = 1000)
 
-### 2.9 Analyse Schadensgrösse
+### 2.9 Analyse SchadensgrÃ¶sse
 
 # 2.9.1 Balkendiagramm zur Analyse von Unfalltoten
 
