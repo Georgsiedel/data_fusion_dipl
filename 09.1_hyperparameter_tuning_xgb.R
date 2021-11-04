@@ -8,7 +8,7 @@ daten <- "E:/Documents/Unfalldaten/euska_sachsen"
 
 donor <- read.csv(paste(daten,"/Ergebnisse/3_donor_20k.csv", sep = ""), row.names = NULL, sep = ";")
 recipient <- read.csv(paste(daten,"/Ergebnisse/3_recipient_5k.csv", sep = ""), row.names = NULL, sep = ";")
-#Loeschen der ersten Spalte, die automatisch hinzugefügt wird
+#Loeschen der ersten Spalte, die automatisch hinzugefÃ¼gt wird
 donor <- donor[, -1]
 recipient <- recipient[, -1]
 
