@@ -16,7 +16,7 @@ daten <- "E:/Documents/Unfalldaten/euska_sachsen"
 
 sachsen <- read.csv(paste(daten,"/Ergebnisse/2_Vorbereitung_teil2.csv", sep = ""), row.names = NULL, sep = ";")
 
-#Loeschen der ersten Spalte, die automatisch hinzugefügt wird
+#Loeschen der ersten Spalte, die automatisch hinzugefÃ¼gt wird
 sachsen <- sachsen[, -1]
 
 #Datensplit 1:4 mit 2,5facher Datenmenge wie in Vergleichsarbeit von Max
@@ -33,7 +33,7 @@ stichprobe_spender <- sample(allrows_ohne_stichprobe, size = b, replace = FALSE)
 recipient <- sachsen[stichprobe_empfaenger,] 
 donor <- sachsen[stichprobe_spender,]
 
-#Faktorisieren der Datensätze falls hier etwas übersehen wurde
+#Faktorisieren der DatensÃ¤tze falls hier etwas Ã¼bersehen wurde
 
 for (i in 1:length(donor)){
   donor[,i] <- factor(donor[,i])
@@ -49,13 +49,13 @@ for (i in 1:length(recipient)){
 write.csv2(recipient, paste(daten,"/ergebnisse/3_recipient_5k.csv", sep = ""))
 write.csv2(donor, paste(daten,"/ergebnisse/3_donor_20k.csv", sep = ""))
 
-### Kontigenztabellen berechnen und Hellinger Distanz zwischen gleichen Attributen der zwei Datensätze
+### Kontigenztabellen berechnen und Hellinger Distanz zwischen gleichen Attributen der zwei DatensÃ¤tze
 ### --> Populationsvergleich
 
 {if(nlevels(donor$Fatalities) == nlevels(recipient$Fatalities)){
   
 
-  tt.R <- xtabs(~ Fatalities, data = recipient) #Empfänger
+  tt.R <- xtabs(~ Fatalities, data = recipient) #EmpfÃ¤nger
   tt.D <- xtabs(~ Fatalities, data = donor) #Spender 
 
   comp_a <- StatMatch::comp.prop(p1=tt.R, p2=tt.D, n1 = nrow(recipient), n2 = nrow(donor), ref = FALSE) #Verteilungsvergleich
@@ -67,7 +67,7 @@ write.csv2(donor, paste(daten,"/ergebnisse/3_donor_20k.csv", sep = ""))
 {if(nlevels(donor$Urban) == nlevels(recipient$Urban)){
   
   
-  tt.R <- xtabs(~ Urban, data = recipient) #Empfänger
+  tt.R <- xtabs(~ Urban, data = recipient) #EmpfÃ¤nger
   tt.D <- xtabs(~ Urban, data = donor) #Spender 
   
   comp_a <- StatMatch::comp.prop(p1=tt.R, p2=tt.D, n1 = nrow(recipient), n2 = nrow(donor), ref = FALSE) #Verteilungsvergleich
@@ -79,7 +79,7 @@ write.csv2(donor, paste(daten,"/ergebnisse/3_donor_20k.csv", sep = ""))
 {if(nlevels(donor$Intersection) == nlevels(recipient$Intersection)){
   
   
-  tt.R <- xtabs(~ Intersection, data = recipient) #Empfänger
+  tt.R <- xtabs(~ Intersection, data = recipient) #EmpfÃ¤nger
   tt.D <- xtabs(~ Intersection, data = donor) #Spender 
   
   comp_a <- StatMatch::comp.prop(p1=tt.R, p2=tt.D, n1 = nrow(recipient), n2 = nrow(donor), ref = FALSE) #Verteilungsvergleich
@@ -91,7 +91,7 @@ write.csv2(donor, paste(daten,"/ergebnisse/3_donor_20k.csv", sep = ""))
 {if(nlevels(donor$TrafficLights) == nlevels(recipient$TrafficLights)){
   
   
-  tt.R <- xtabs(~ TrafficLights, data = recipient) #Empfänger
+  tt.R <- xtabs(~ TrafficLights, data = recipient) #EmpfÃ¤nger
   tt.D <- xtabs(~ TrafficLights, data = donor) #Spender 
   
   comp_a <- StatMatch::comp.prop(p1=tt.R, p2=tt.D, n1 = nrow(recipient), n2 = nrow(donor), ref = FALSE) #Verteilungsvergleich
@@ -103,7 +103,7 @@ write.csv2(donor, paste(daten,"/ergebnisse/3_donor_20k.csv", sep = ""))
 {if(nlevels(donor$Driveway) == nlevels(recipient$Driveway)){
   
   
-  tt.R <- xtabs(~ Driveway, data = recipient) #Empfänger
+  tt.R <- xtabs(~ Driveway, data = recipient) #EmpfÃ¤nger
   tt.D <- xtabs(~ Driveway, data = donor) #Spender 
   
   comp_a <- StatMatch::comp.prop(p1=tt.R, p2=tt.D, n1 = nrow(recipient), n2 = nrow(donor), ref = FALSE) #Verteilungsvergleich
@@ -115,7 +115,7 @@ write.csv2(donor, paste(daten,"/ergebnisse/3_donor_20k.csv", sep = ""))
 {if(nlevels(donor$Curve) == nlevels(recipient$Curve)){
   
   
-  tt.R <- xtabs(~ Curve, data = recipient) #Empfänger
+  tt.R <- xtabs(~ Curve, data = recipient) #EmpfÃ¤nger
   tt.D <- xtabs(~ Curve, data = donor) #Spender 
   
   comp_a <- StatMatch::comp.prop(p1=tt.R, p2=tt.D, n1 = nrow(recipient), n2 = nrow(donor), ref = FALSE) #Verteilungsvergleich
@@ -127,7 +127,7 @@ write.csv2(donor, paste(daten,"/ergebnisse/3_donor_20k.csv", sep = ""))
 {if(nlevels(donor$Slope) == nlevels(recipient$Slope)){
   
   
-  tt.R <- xtabs(~ Slope, data = recipient) #Empfänger
+  tt.R <- xtabs(~ Slope, data = recipient) #EmpfÃ¤nger
   tt.D <- xtabs(~ Slope, data = donor) #Spender 
   
   comp_a <- StatMatch::comp.prop(p1=tt.R, p2=tt.D, n1 = nrow(recipient), n2 = nrow(donor), ref = FALSE) #Verteilungsvergleich
@@ -139,7 +139,7 @@ write.csv2(donor, paste(daten,"/ergebnisse/3_donor_20k.csv", sep = ""))
 {if(nlevels(donor$Crosswalk) == nlevels(recipient$Crosswalk)){
   
   
-  tt.R <- xtabs(~ Crosswalk, data = recipient) #Empfänger
+  tt.R <- xtabs(~ Crosswalk, data = recipient) #EmpfÃ¤nger
   tt.D <- xtabs(~ Crosswalk, data = donor) #Spender 
   
   comp_a <- StatMatch::comp.prop(p1=tt.R, p2=tt.D, n1 = nrow(recipient), n2 = nrow(donor), ref = FALSE) #Verteilungsvergleich
@@ -151,7 +151,7 @@ write.csv2(donor, paste(daten,"/ergebnisse/3_donor_20k.csv", sep = ""))
 {if(nlevels(donor$Roundabout) == nlevels(recipient$Roundabout)){
   
   
-  tt.R <- xtabs(~ Roundabout, data = recipient) #Empfänger
+  tt.R <- xtabs(~ Roundabout, data = recipient) #EmpfÃ¤nger
   tt.D <- xtabs(~ Roundabout, data = donor) #Spender 
   
   comp_a <- StatMatch::comp.prop(p1=tt.R, p2=tt.D, n1 = nrow(recipient), n2 = nrow(donor), ref = FALSE) #Verteilungsvergleich
@@ -163,7 +163,7 @@ write.csv2(donor, paste(daten,"/ergebnisse/3_donor_20k.csv", sep = ""))
 {if(nlevels(donor$Runaway) == nlevels(recipient$Runaway)){
   
   
-  tt.R <- xtabs(~ Runaway, data = recipient) #Empfänger
+  tt.R <- xtabs(~ Runaway, data = recipient) #EmpfÃ¤nger
   tt.D <- xtabs(~ Runaway, data = donor) #Spender 
   
   comp_a <- StatMatch::comp.prop(p1=tt.R, p2=tt.D, n1 = nrow(recipient), n2 = nrow(donor), ref = FALSE) #Verteilungsvergleich
@@ -175,7 +175,7 @@ write.csv2(donor, paste(daten,"/ergebnisse/3_donor_20k.csv", sep = ""))
 {if(nlevels(donor$Car) == nlevels(recipient$Car)){
   
   
-  tt.R <- xtabs(~ Car, data = recipient) #Empfänger
+  tt.R <- xtabs(~ Car, data = recipient) #EmpfÃ¤nger
   tt.D <- xtabs(~ Car, data = donor) #Spender 
   
   comp_a <- StatMatch::comp.prop(p1=tt.R, p2=tt.D, n1 = nrow(recipient), n2 = nrow(donor), ref = FALSE) #Verteilungsvergleich
@@ -187,7 +187,7 @@ write.csv2(donor, paste(daten,"/ergebnisse/3_donor_20k.csv", sep = ""))
 {if(nlevels(donor$Pedestrian) == nlevels(recipient$Pedestrian)){
   
   
-  tt.R <- xtabs(~ Pedestrian, data = recipient) #Empfänger
+  tt.R <- xtabs(~ Pedestrian, data = recipient) #EmpfÃ¤nger
   tt.D <- xtabs(~ Pedestrian, data = donor) #Spender 
   
   comp_a <- StatMatch::comp.prop(p1=tt.R, p2=tt.D, n1 = nrow(recipient), n2 = nrow(donor), ref = FALSE) #Verteilungsvergleich
@@ -199,7 +199,7 @@ write.csv2(donor, paste(daten,"/ergebnisse/3_donor_20k.csv", sep = ""))
 {if(nlevels(donor$Bicycle) == nlevels(recipient$Bicycle)){
   
   
-  tt.R <- xtabs(~ Bicycle, data = recipient) #Empfänger
+  tt.R <- xtabs(~ Bicycle, data = recipient) #EmpfÃ¤nger
   tt.D <- xtabs(~ Bicycle, data = donor) #Spender 
   
   comp_a <- StatMatch::comp.prop(p1=tt.R, p2=tt.D, n1 = nrow(recipient), n2 = nrow(donor), ref = FALSE) #Verteilungsvergleich
@@ -211,7 +211,7 @@ write.csv2(donor, paste(daten,"/ergebnisse/3_donor_20k.csv", sep = ""))
 {if(nlevels(donor$Motorcycle) == nlevels(recipient$Motorcycle)){
   
   
-  tt.R <- xtabs(~ Motorcycle, data = recipient) #Empfänger
+  tt.R <- xtabs(~ Motorcycle, data = recipient) #EmpfÃ¤nger
   tt.D <- xtabs(~ Motorcycle, data = donor) #Spender 
   
   comp_a <- StatMatch::comp.prop(p1=tt.R, p2=tt.D, n1 = nrow(recipient), n2 = nrow(donor), ref = FALSE) #Verteilungsvergleich
@@ -223,7 +223,7 @@ write.csv2(donor, paste(daten,"/ergebnisse/3_donor_20k.csv", sep = ""))
 {if(nlevels(donor$Truck) == nlevels(recipient$Truck)){
   
   
-  tt.R <- xtabs(~ Truck, data = recipient) #Empfänger
+  tt.R <- xtabs(~ Truck, data = recipient) #EmpfÃ¤nger
   tt.D <- xtabs(~ Truck, data = donor) #Spender
   
   comp_a <- StatMatch::comp.prop(p1=tt.R, p2=tt.D, n1 = nrow(recipient), n2 = nrow(donor), ref = FALSE) #Verteilungsvergleich
@@ -235,7 +235,7 @@ write.csv2(donor, paste(daten,"/ergebnisse/3_donor_20k.csv", sep = ""))
 {if(nlevels(donor$Bus) == nlevels(recipient$Bus)){
   
   
-  tt.R <- xtabs(~ Bus, data = recipient) #Empfänger
+  tt.R <- xtabs(~ Bus, data = recipient) #EmpfÃ¤nger
   tt.D <- xtabs(~ Bus, data = donor) #Spender
   
   comp_a <- StatMatch::comp.prop(p1=tt.R, p2=tt.D, n1 = nrow(recipient), n2 = nrow(donor), ref = FALSE) #Verteilungsvergleich
@@ -247,7 +247,7 @@ write.csv2(donor, paste(daten,"/ergebnisse/3_donor_20k.csv", sep = ""))
 {if(nlevels(donor$Tram) == nlevels(recipient$Tram)){
   
   
-  tt.R <- xtabs(~ Tram, data = recipient) #Empfänger
+  tt.R <- xtabs(~ Tram, data = recipient) #EmpfÃ¤nger
   tt.D <- xtabs(~ Tram, data = donor) #Spender
   
   comp_a <- StatMatch::comp.prop(p1=tt.R, p2=tt.D, n1 = nrow(recipient), n2 = nrow(donor), ref = FALSE) #Verteilungsvergleich
@@ -259,7 +259,7 @@ write.csv2(donor, paste(daten,"/ergebnisse/3_donor_20k.csv", sep = ""))
 {if(nlevels(donor$Train) == nlevels(recipient$Train)){
   
   
-  tt.R <- xtabs(~ Train, data = recipient) #Empfänger
+  tt.R <- xtabs(~ Train, data = recipient) #EmpfÃ¤nger
   tt.D <- xtabs(~ Train, data = donor) #Spender 
   
   comp_a <- StatMatch::comp.prop(p1=tt.R, p2=tt.D, n1 = nrow(recipient), n2 = nrow(donor), ref = FALSE) #Verteilungsvergleich
@@ -271,7 +271,7 @@ write.csv2(donor, paste(daten,"/ergebnisse/3_donor_20k.csv", sep = ""))
 {if(nlevels(donor$AccidentType) == nlevels(recipient$AccidentType)){
   
   
-  tt.R <- xtabs(~ AccidentType, data = recipient) #Empfänger
+  tt.R <- xtabs(~ AccidentType, data = recipient) #EmpfÃ¤nger
   tt.D <- xtabs(~ AccidentType, data = donor) #Spender 
   
   comp_a <- StatMatch::comp.prop(p1=tt.R, p2=tt.D, n1 = nrow(recipient), n2 = nrow(donor), ref = FALSE) #Verteilungsvergleich
@@ -283,7 +283,7 @@ write.csv2(donor, paste(daten,"/ergebnisse/3_donor_20k.csv", sep = ""))
 {if(nlevels(donor$Slippery) == nlevels(recipient$Slippery)){
   
   
-  tt.R <- xtabs(~ Slippery, data = recipient) #Empfänger
+  tt.R <- xtabs(~ Slippery, data = recipient) #EmpfÃ¤nger
   tt.D <- xtabs(~ Slippery, data = donor) #Spender
   
   comp_a <- StatMatch::comp.prop(p1=tt.R, p2=tt.D, n1 = nrow(recipient), n2 = nrow(donor), ref = FALSE) #Verteilungsvergleich
@@ -295,7 +295,7 @@ write.csv2(donor, paste(daten,"/ergebnisse/3_donor_20k.csv", sep = ""))
 {if(nlevels(donor$Darkness) == nlevels(recipient$Darkness)){
   
   
-  tt.R <- xtabs(~ Darkness, data = recipient) #Empfänger
+  tt.R <- xtabs(~ Darkness, data = recipient) #EmpfÃ¤nger
   tt.D <- xtabs(~ Darkness, data = donor) #Spender
   
   comp_a <- StatMatch::comp.prop(p1=tt.R, p2=tt.D, n1 = nrow(recipient), n2 = nrow(donor), ref = FALSE) #Verteilungsvergleich
@@ -307,7 +307,7 @@ write.csv2(donor, paste(daten,"/ergebnisse/3_donor_20k.csv", sep = ""))
 {if(nlevels(donor$Animal) == nlevels(recipient$Animal)){
   
   
-  tt.R <- xtabs(~ Animal, data = recipient) #Empfänger
+  tt.R <- xtabs(~ Animal, data = recipient) #EmpfÃ¤nger
   tt.D <- xtabs(~ Animal, data = donor) #Spender 
   
   comp_a <- StatMatch::comp.prop(p1=tt.R, p2=tt.D, n1 = nrow(recipient), n2 = nrow(donor), ref = FALSE) #Verteilungsvergleich
@@ -319,7 +319,7 @@ write.csv2(donor, paste(daten,"/ergebnisse/3_donor_20k.csv", sep = ""))
 {if(nlevels(donor$ObstacleOnRoad) == nlevels(recipient$ObstacleOnRoad)){
   
   
-  tt.R <- xtabs(~ ObstacleOnRoad, data = recipient) #Empfänger
+  tt.R <- xtabs(~ ObstacleOnRoad, data = recipient) #EmpfÃ¤nger
   tt.D <- xtabs(~ ObstacleOnRoad, data = donor) #Spender 
   
   comp_a <- StatMatch::comp.prop(p1=tt.R, p2=tt.D, n1 = nrow(recipient), n2 = nrow(donor), ref = FALSE) #Verteilungsvergleich
@@ -331,7 +331,7 @@ write.csv2(donor, paste(daten,"/ergebnisse/3_donor_20k.csv", sep = ""))
 {if(nlevels(donor$BadWeather) == nlevels(recipient$BadWeather)){
   
   
-  tt.R <- xtabs(~ BadWeather, data = recipient) #Empfänger
+  tt.R <- xtabs(~ BadWeather, data = recipient) #EmpfÃ¤nger
   tt.D <- xtabs(~ BadWeather, data = donor) #Spender 
   
   comp_a <- StatMatch::comp.prop(p1=tt.R, p2=tt.D, n1 = nrow(recipient), n2 = nrow(donor), ref = FALSE) #Verteilungsvergleich
@@ -343,7 +343,7 @@ write.csv2(donor, paste(daten,"/ergebnisse/3_donor_20k.csv", sep = ""))
 {if(nlevels(donor$BadRoad) == nlevels(recipient$BadRoad)){
   
   
-  tt.R <- xtabs(~ BadRoad, data = recipient) #Empfänger
+  tt.R <- xtabs(~ BadRoad, data = recipient) #EmpfÃ¤nger
   tt.D <- xtabs(~ BadRoad, data = donor) #Spender 
   
   comp_a <- StatMatch::comp.prop(p1=tt.R, p2=tt.D, n1 = nrow(recipient), n2 = nrow(donor), ref = FALSE) #Verteilungsvergleich
@@ -355,7 +355,7 @@ write.csv2(donor, paste(daten,"/ergebnisse/3_donor_20k.csv", sep = ""))
 {if(nlevels(donor$EnvironmentalReason) == nlevels(recipient$EnvironmentalReason)){
   
   
-  tt.R <- xtabs(~ EnvironmentalReason, data = recipient) #Empfänger
+  tt.R <- xtabs(~ EnvironmentalReason, data = recipient) #EmpfÃ¤nger
   tt.D <- xtabs(~ EnvironmentalReason, data = donor) #Spender 
   
   comp_a <- StatMatch::comp.prop(p1=tt.R, p2=tt.D, n1 = nrow(recipient), n2 = nrow(donor), ref = FALSE) #Verteilungsvergleich
@@ -367,7 +367,7 @@ write.csv2(donor, paste(daten,"/ergebnisse/3_donor_20k.csv", sep = ""))
 {if(nlevels(donor$Tree) == nlevels(recipient$Tree)){
   
   
-  tt.R <- xtabs(~ Tree, data = recipient) #Empfänger
+  tt.R <- xtabs(~ Tree, data = recipient) #EmpfÃ¤nger
   tt.D <- xtabs(~ Tree, data = donor) #Spender 
   
   comp_a <- StatMatch::comp.prop(p1=tt.R, p2=tt.D, n1 = nrow(recipient), n2 = nrow(donor), ref = FALSE) #Verteilungsvergleich
@@ -379,7 +379,7 @@ write.csv2(donor, paste(daten,"/ergebnisse/3_donor_20k.csv", sep = ""))
 {if(nlevels(donor$ObstacleOffRoad) == nlevels(recipient$ObstacleOffRoad)){
   
   
-  tt.R <- xtabs(~ ObstacleOffRoad, data = recipient) #Empfänger
+  tt.R <- xtabs(~ ObstacleOffRoad, data = recipient) #EmpfÃ¤nger
   tt.D <- xtabs(~ ObstacleOffRoad, data = donor) #Spender 
   
   comp_a <- StatMatch::comp.prop(p1=tt.R, p2=tt.D, n1 = nrow(recipient), n2 = nrow(donor), ref = FALSE) #Verteilungsvergleich
@@ -391,7 +391,7 @@ write.csv2(donor, paste(daten,"/ergebnisse/3_donor_20k.csv", sep = ""))
 {if(nlevels(donor$Overtaking) == nlevels(recipient$Overtaking)){
   
   
-  tt.R <- xtabs(~ Overtaking, data = recipient) #Empfänger
+  tt.R <- xtabs(~ Overtaking, data = recipient) #EmpfÃ¤nger
   tt.D <- xtabs(~ Overtaking, data = donor) #Spender 
   
   comp_a <- StatMatch::comp.prop(p1=tt.R, p2=tt.D, n1 = nrow(recipient), n2 = nrow(donor), ref = FALSE) #Verteilungsvergleich
@@ -403,7 +403,7 @@ write.csv2(donor, paste(daten,"/ergebnisse/3_donor_20k.csv", sep = ""))
 {if(nlevels(donor$Alcohol) == nlevels(recipient$Alcohol)){
   
   
-  tt.R <- xtabs(~ Alcohol, data = recipient) #Empfänger
+  tt.R <- xtabs(~ Alcohol, data = recipient) #EmpfÃ¤nger
   tt.D <- xtabs(~ Alcohol, data = donor) #Spender 
   
   comp_a <- StatMatch::comp.prop(p1=tt.R, p2=tt.D, n1 = nrow(recipient), n2 = nrow(donor), ref = FALSE) #Verteilungsvergleich
@@ -415,7 +415,7 @@ write.csv2(donor, paste(daten,"/ergebnisse/3_donor_20k.csv", sep = ""))
 {if(nlevels(donor$Speeding) == nlevels(recipient$Speeding)){
   
   
-  tt.R <- xtabs(~ Speeding, data = recipient) #Empfänger
+  tt.R <- xtabs(~ Speeding, data = recipient) #EmpfÃ¤nger
   tt.D <- xtabs(~ Speeding, data = donor) #Spender 
   
   comp_a <- StatMatch::comp.prop(p1=tt.R, p2=tt.D, n1 = nrow(recipient), n2 = nrow(donor), ref = FALSE) #Verteilungsvergleich
@@ -427,7 +427,7 @@ write.csv2(donor, paste(daten,"/ergebnisse/3_donor_20k.csv", sep = ""))
 {if(nlevels(donor$RedLight) == nlevels(recipient$RedLight)){
   
   
-  tt.R <- xtabs(~ RedLight, data = recipient) #Empfänger
+  tt.R <- xtabs(~ RedLight, data = recipient) #EmpfÃ¤nger
   tt.D <- xtabs(~ RedLight, data = donor) #Spender 
   
   comp_a <- StatMatch::comp.prop(p1=tt.R, p2=tt.D, n1 = nrow(recipient), n2 = nrow(donor), ref = FALSE) #Verteilungsvergleich
@@ -439,7 +439,7 @@ write.csv2(donor, paste(daten,"/ergebnisse/3_donor_20k.csv", sep = ""))
 {if(nlevels(donor$Distance) == nlevels(recipient$Distance)){
   
   
-  tt.R <- xtabs(~ Distance, data = recipient) #Empfänger
+  tt.R <- xtabs(~ Distance, data = recipient) #EmpfÃ¤nger
   tt.D <- xtabs(~ Distance, data = donor) #Spender 
   
   comp_a <- StatMatch::comp.prop(p1=tt.R, p2=tt.D, n1 = nrow(recipient), n2 = nrow(donor), ref = FALSE) #Verteilungsvergleich
@@ -451,7 +451,7 @@ write.csv2(donor, paste(daten,"/ergebnisse/3_donor_20k.csv", sep = ""))
 {if(nlevels(donor$Priority) == nlevels(recipient$Priority)){
   
   
-  tt.R <- xtabs(~ Priority, data = recipient) #Empfänger
+  tt.R <- xtabs(~ Priority, data = recipient) #EmpfÃ¤nger
   tt.D <- xtabs(~ Priority, data = donor) #Spender 
   
   comp_a <- StatMatch::comp.prop(p1=tt.R, p2=tt.D, n1 = nrow(recipient), n2 = nrow(donor), ref = FALSE) #Verteilungsvergleich
@@ -463,7 +463,7 @@ write.csv2(donor, paste(daten,"/ergebnisse/3_donor_20k.csv", sep = ""))
 {if(nlevels(donor$Turning) == nlevels(recipient$Turning)){
   
   
-  tt.R <- xtabs(~ Turning, data = recipient) #Empfänger
+  tt.R <- xtabs(~ Turning, data = recipient) #EmpfÃ¤nger
   tt.D <- xtabs(~ Turning, data = donor) #Spender 
   
   comp_a <- StatMatch::comp.prop(p1=tt.R, p2=tt.D, n1 = nrow(recipient), n2 = nrow(donor), ref = FALSE) #Verteilungsvergleich
@@ -475,7 +475,7 @@ write.csv2(donor, paste(daten,"/ergebnisse/3_donor_20k.csv", sep = ""))
 {if(nlevels(donor$Aufprall_Hindernis) == nlevels(recipient$Aufprall_Hindernis)){
   
   
-  tt.R <- xtabs(~ Aufprall_Hindernis, data = recipient) #Empfänger
+  tt.R <- xtabs(~ Aufprall_Hindernis, data = recipient) #EmpfÃ¤nger
   tt.D <- xtabs(~ Aufprall_Hindernis, data = donor) #Spender 
   
   comp_a <- StatMatch::comp.prop(p1=tt.R, p2=tt.D, n1 = nrow(recipient), n2 = nrow(donor), ref = FALSE) #Verteilungsvergleich
@@ -487,7 +487,7 @@ write.csv2(donor, paste(daten,"/ergebnisse/3_donor_20k.csv", sep = ""))
 {if(nlevels(donor$Winterzeit) == nlevels(recipient$Winterzeit)){
   
   
-  tt.R <- xtabs(~ Winterzeit, data = recipient) #Empfänger
+  tt.R <- xtabs(~ Winterzeit, data = recipient) #EmpfÃ¤nger
   tt.D <- xtabs(~ Winterzeit, data = donor) #Spender 
   
   comp_a <- StatMatch::comp.prop(p1=tt.R, p2=tt.D, n1 = nrow(recipient), n2 = nrow(donor), ref = FALSE) #Verteilungsvergleich
@@ -499,7 +499,7 @@ write.csv2(donor, paste(daten,"/ergebnisse/3_donor_20k.csv", sep = ""))
 {if(nlevels(donor$Sommerpause) == nlevels(recipient$Sommerpause)){
   
   
-  tt.R <- xtabs(~ Sommerpause, data = recipient) #Empfänger
+  tt.R <- xtabs(~ Sommerpause, data = recipient) #EmpfÃ¤nger
   tt.D <- xtabs(~ Sommerpause, data = donor) #Spender 
   
   comp_a <- StatMatch::comp.prop(p1=tt.R, p2=tt.D, n1 = nrow(recipient), n2 = nrow(donor), ref = FALSE) #Verteilungsvergleich
@@ -511,7 +511,7 @@ write.csv2(donor, paste(daten,"/ergebnisse/3_donor_20k.csv", sep = ""))
 {if(nlevels(donor$abnulluhr) == nlevels(recipient$abnulluhr)){
   
   
-  tt.R <- xtabs(~ abnulluhr, data = recipient) #Empfänger
+  tt.R <- xtabs(~ abnulluhr, data = recipient) #EmpfÃ¤nger
   tt.D <- xtabs(~ abnulluhr, data = donor) #Spender 
   
   comp_a <- StatMatch::comp.prop(p1=tt.R, p2=tt.D, n1 = nrow(recipient), n2 = nrow(donor), ref = FALSE) #Verteilungsvergleich
@@ -523,7 +523,7 @@ write.csv2(donor, paste(daten,"/ergebnisse/3_donor_20k.csv", sep = ""))
 {if(nlevels(donor$abvieruhr) == nlevels(recipient$abvieruhr)){
   
   
-  tt.R <- xtabs(~ abvieruhr, data = recipient) #Empfänger
+  tt.R <- xtabs(~ abvieruhr, data = recipient) #EmpfÃ¤nger
   tt.D <- xtabs(~ abvieruhr, data = donor) #Spender 
   
   comp_a <- StatMatch::comp.prop(p1=tt.R, p2=tt.D, n1 = nrow(recipient), n2 = nrow(donor), ref = FALSE) #Verteilungsvergleich
@@ -535,7 +535,7 @@ write.csv2(donor, paste(daten,"/ergebnisse/3_donor_20k.csv", sep = ""))
 {if(nlevels(donor$abfuenfuhrdreissig) == nlevels(recipient$abfuenfuhrdreissig)){
   
   
-  tt.R <- xtabs(~ abfuenfuhrdreissig, data = recipient) #Empfänger
+  tt.R <- xtabs(~ abfuenfuhrdreissig, data = recipient) #EmpfÃ¤nger
   tt.D <- xtabs(~ abfuenfuhrdreissig, data = donor) #Spender 
   
   comp_a <- StatMatch::comp.prop(p1=tt.R, p2=tt.D, n1 = nrow(recipient), n2 = nrow(donor), ref = FALSE) #Verteilungsvergleich
@@ -547,7 +547,7 @@ write.csv2(donor, paste(daten,"/ergebnisse/3_donor_20k.csv", sep = ""))
 {if(nlevels(donor$absechsuhrdreissig) == nlevels(recipient$absechsuhrdreissig)){
   
   
-  tt.R <- xtabs(~ absechsuhrdreissig, data = recipient) #Empfänger
+  tt.R <- xtabs(~ absechsuhrdreissig, data = recipient) #EmpfÃ¤nger
   tt.D <- xtabs(~ absechsuhrdreissig, data = donor) #Spender 
   
   comp_a <- StatMatch::comp.prop(p1=tt.R, p2=tt.D, n1 = nrow(recipient), n2 = nrow(donor), ref = FALSE) #Verteilungsvergleich
@@ -559,7 +559,7 @@ write.csv2(donor, paste(daten,"/ergebnisse/3_donor_20k.csv", sep = ""))
 {if(nlevels(donor$abdreizehnuhrdreissig) == nlevels(recipient$abdreizehnuhrdreissig)){
   
   
-  tt.R <- xtabs(~ abdreizehnuhrdreissig, data = recipient) #Empfänger
+  tt.R <- xtabs(~ abdreizehnuhrdreissig, data = recipient) #EmpfÃ¤nger
   tt.D <- xtabs(~ abdreizehnuhrdreissig, data = donor) #Spender 
   
   comp_a <- StatMatch::comp.prop(p1=tt.R, p2=tt.D, n1 = nrow(recipient), n2 = nrow(donor), ref = FALSE) #Verteilungsvergleich
@@ -571,7 +571,7 @@ write.csv2(donor, paste(daten,"/ergebnisse/3_donor_20k.csv", sep = ""))
 {if(nlevels(donor$abachtzehnuhr) == nlevels(recipient$abachtzehnuhr)){
   
   
-  tt.R <- xtabs(~ abachtzehnuhr, data = recipient) #Empfänger
+  tt.R <- xtabs(~ abachtzehnuhr, data = recipient) #EmpfÃ¤nger
   tt.D <- xtabs(~ abachtzehnuhr, data = donor) #Spender 
   
   comp_a <- StatMatch::comp.prop(p1=tt.R, p2=tt.D, n1 = nrow(recipient), n2 = nrow(donor), ref = FALSE) #Verteilungsvergleich
@@ -583,7 +583,7 @@ write.csv2(donor, paste(daten,"/ergebnisse/3_donor_20k.csv", sep = ""))
 {if(nlevels(donor$Samstag) == nlevels(recipient$Samstag)){
   
   
-  tt.R <- xtabs(~ Samstag, data = recipient) #Empfänger
+  tt.R <- xtabs(~ Samstag, data = recipient) #EmpfÃ¤nger
   tt.D <- xtabs(~ Samstag, data = donor) #Spender 
   
   comp_a <- StatMatch::comp.prop(p1=tt.R, p2=tt.D, n1 = nrow(recipient), n2 = nrow(donor), ref = FALSE) #Verteilungsvergleich
@@ -595,7 +595,7 @@ write.csv2(donor, paste(daten,"/ergebnisse/3_donor_20k.csv", sep = ""))
 {if(nlevels(donor$Sonntag) == nlevels(recipient$Sonntag)){
   
   
-  tt.R <- xtabs(~ Sonntag, data = recipient) #Empfänger
+  tt.R <- xtabs(~ Sonntag, data = recipient) #EmpfÃ¤nger
   tt.D <- xtabs(~ Sonntag, data = donor) #Spender 
   
   comp_a <- StatMatch::comp.prop(p1=tt.R, p2=tt.D, n1 = nrow(recipient), n2 = nrow(donor), ref = FALSE) #Verteilungsvergleich
@@ -607,7 +607,7 @@ write.csv2(donor, paste(daten,"/ergebnisse/3_donor_20k.csv", sep = ""))
 {if(nlevels(donor$Kind) == nlevels(recipient$Kind)){
   
   
-  tt.R <- xtabs(~ Kind, data = recipient) #Empfänger
+  tt.R <- xtabs(~ Kind, data = recipient) #EmpfÃ¤nger
   tt.D <- xtabs(~ Kind, data = donor) #Spender 
   
   comp_a <- StatMatch::comp.prop(p1=tt.R, p2=tt.D, n1 = nrow(recipient), n2 = nrow(donor), ref = FALSE) #Verteilungsvergleich
@@ -619,7 +619,7 @@ write.csv2(donor, paste(daten,"/ergebnisse/3_donor_20k.csv", sep = ""))
 {if(nlevels(donor$Jugendlich) == nlevels(recipient$Jugendlich)){
   
   
-  tt.R <- xtabs(~ Jugendlich, data = recipient) #Empfänger
+  tt.R <- xtabs(~ Jugendlich, data = recipient) #EmpfÃ¤nger
   tt.D <- xtabs(~ Jugendlich, data = donor) #Spender 
   
   comp_a <- StatMatch::comp.prop(p1=tt.R, p2=tt.D, n1 = nrow(recipient), n2 = nrow(donor), ref = FALSE) #Verteilungsvergleich
@@ -631,7 +631,7 @@ write.csv2(donor, paste(daten,"/ergebnisse/3_donor_20k.csv", sep = ""))
 {if(nlevels(donor$schwerverletzt_1) == nlevels(recipient$schwerverletzt_1)){
   
   
-  tt.R <- xtabs(~ schwerverletzt_1, data = recipient) #Empfänger
+  tt.R <- xtabs(~ schwerverletzt_1, data = recipient) #EmpfÃ¤nger
   tt.D <- xtabs(~ schwerverletzt_1, data = donor) #Spender 
   
   comp_a <- StatMatch::comp.prop(p1=tt.R, p2=tt.D, n1 = nrow(recipient), n2 = nrow(donor), ref = FALSE) #Verteilungsvergleich
@@ -643,7 +643,7 @@ write.csv2(donor, paste(daten,"/ergebnisse/3_donor_20k.csv", sep = ""))
 {if(nlevels(donor$Schwerverletzt_2bis3) == nlevels(recipient$Schwerverletzt_2bis3)){
   
   
-  tt.R <- xtabs(~ Schwerverletzt_2bis3, data = recipient) #Empfänger
+  tt.R <- xtabs(~ Schwerverletzt_2bis3, data = recipient) #EmpfÃ¤nger
   tt.D <- xtabs(~ Schwerverletzt_2bis3, data = donor) #Spender 
   
   comp_a <- StatMatch::comp.prop(p1=tt.R, p2=tt.D, n1 = nrow(recipient), n2 = nrow(donor), ref = FALSE) #Verteilungsvergleich
@@ -655,7 +655,7 @@ write.csv2(donor, paste(daten,"/ergebnisse/3_donor_20k.csv", sep = ""))
 {if(nlevels(donor$Schwerverletzt_ab3) == nlevels(recipient$Schwerverletzt_ab3)){
   
   
-  tt.R <- xtabs(~ Schwerverletzt_ab3, data = recipient) #Empfänger
+  tt.R <- xtabs(~ Schwerverletzt_ab3, data = recipient) #EmpfÃ¤nger
   tt.D <- xtabs(~ Schwerverletzt_ab3, data = donor) #Spender 
   
   comp_a <- StatMatch::comp.prop(p1=tt.R, p2=tt.D, n1 = nrow(recipient), n2 = nrow(donor), ref = FALSE) #Verteilungsvergleich
@@ -667,7 +667,7 @@ write.csv2(donor, paste(daten,"/ergebnisse/3_donor_20k.csv", sep = ""))
 {if(nlevels(donor$leichtverletzt_1) == nlevels(recipient$leichtverletzt_1)){
   
   
-  tt.R <- xtabs(~ leichtverletzt_1, data = recipient) #Empfänger
+  tt.R <- xtabs(~ leichtverletzt_1, data = recipient) #EmpfÃ¤nger
   tt.D <- xtabs(~ leichtverletzt_1, data = donor) #Spender 
   
   comp_a <- StatMatch::comp.prop(p1=tt.R, p2=tt.D, n1 = nrow(recipient), n2 = nrow(donor), ref = FALSE) #Verteilungsvergleich
@@ -679,7 +679,7 @@ write.csv2(donor, paste(daten,"/ergebnisse/3_donor_20k.csv", sep = ""))
 {if(nlevels(donor$leichtverletzt_2bis4) == nlevels(recipient$leichtverletzt_2bis4)){
   
   
-  tt.R <- xtabs(~ leichtverletzt_2bis4, data = recipient) #Empfänger
+  tt.R <- xtabs(~ leichtverletzt_2bis4, data = recipient) #EmpfÃ¤nger
   tt.D <- xtabs(~ leichtverletzt_2bis4, data = donor) #Spender 
   
   comp_a <- StatMatch::comp.prop(p1=tt.R, p2=tt.D, n1 = nrow(recipient), n2 = nrow(donor), ref = FALSE) #Verteilungsvergleich
@@ -691,7 +691,7 @@ write.csv2(donor, paste(daten,"/ergebnisse/3_donor_20k.csv", sep = ""))
 {if(nlevels(donor$leichtverletzt_ab4) == nlevels(recipient$leichtverletzt_ab4)){
   
   
-  tt.R <- xtabs(~ leichtverletzt_ab4, data = recipient) #Empfänger
+  tt.R <- xtabs(~ leichtverletzt_ab4, data = recipient) #EmpfÃ¤nger
   tt.D <- xtabs(~ leichtverletzt_ab4, data = donor) #Spender 
   
   comp_a <- StatMatch::comp.prop(p1=tt.R, p2=tt.D, n1 = nrow(recipient), n2 = nrow(donor), ref = FALSE) #Verteilungsvergleich
@@ -703,7 +703,7 @@ write.csv2(donor, paste(daten,"/ergebnisse/3_donor_20k.csv", sep = ""))
 {if(nlevels(donor$beteiligte_1) == nlevels(recipient$beteiligte_1)){
   
   
-  tt.R <- xtabs(~ beteiligte_1, data = recipient) #Empfänger
+  tt.R <- xtabs(~ beteiligte_1, data = recipient) #EmpfÃ¤nger
   tt.D <- xtabs(~ beteiligte_1, data = donor) #Spender 
   
   comp_a <- StatMatch::comp.prop(p1=tt.R, p2=tt.D, n1 = nrow(recipient), n2 = nrow(donor), ref = FALSE) #Verteilungsvergleich
@@ -715,7 +715,7 @@ write.csv2(donor, paste(daten,"/ergebnisse/3_donor_20k.csv", sep = ""))
 {if(nlevels(donor$beteiligte_3bis5) == nlevels(recipient$beteiligte_3bis5)){
   
   
-  tt.R <- xtabs(~ beteiligte_3bis5, data = recipient) #Empfänger
+  tt.R <- xtabs(~ beteiligte_3bis5, data = recipient) #EmpfÃ¤nger
   tt.D <- xtabs(~ beteiligte_3bis5, data = donor) #Spender 
   
   comp_a <- StatMatch::comp.prop(p1=tt.R, p2=tt.D, n1 = nrow(recipient), n2 = nrow(donor), ref = FALSE) #Verteilungsvergleich
@@ -727,7 +727,7 @@ write.csv2(donor, paste(daten,"/ergebnisse/3_donor_20k.csv", sep = ""))
 {if(nlevels(donor$beteiligte_ab5) == nlevels(recipient$beteiligte_ab5)){
   
   
-  tt.R <- xtabs(~ beteiligte_ab5, data = recipient) #Empfänger
+  tt.R <- xtabs(~ beteiligte_ab5, data = recipient) #EmpfÃ¤nger
   tt.D <- xtabs(~ beteiligte_ab5, data = donor) #Spender 
   
   comp_a <- StatMatch::comp.prop(p1=tt.R, p2=tt.D, n1 = nrow(recipient), n2 = nrow(donor), ref = FALSE) #Verteilungsvergleich
@@ -739,7 +739,7 @@ write.csv2(donor, paste(daten,"/ergebnisse/3_donor_20k.csv", sep = ""))
 {if(nlevels(donor$bis1000euro) == nlevels(recipient$bis1000euro)){
   
   
-  tt.R <- xtabs(~ bis1000euro, data = recipient) #Empfänger
+  tt.R <- xtabs(~ bis1000euro, data = recipient) #EmpfÃ¤nger
   tt.D <- xtabs(~ bis1000euro, data = donor) #Spender 
   
   comp_a <- StatMatch::comp.prop(p1=tt.R, p2=tt.D, n1 = nrow(recipient), n2 = nrow(donor), ref = FALSE) #Verteilungsvergleich
@@ -751,7 +751,7 @@ write.csv2(donor, paste(daten,"/ergebnisse/3_donor_20k.csv", sep = ""))
 {if(nlevels(donor$bis3000euro) == nlevels(recipient$bis3000euro)){
   
   
-  tt.R <- xtabs(~ bis3000euro, data = recipient) #Empfänger
+  tt.R <- xtabs(~ bis3000euro, data = recipient) #EmpfÃ¤nger
   tt.D <- xtabs(~ bis3000euro, data = donor) #Spender 
   
   comp_a <- StatMatch::comp.prop(p1=tt.R, p2=tt.D, n1 = nrow(recipient), n2 = nrow(donor), ref = FALSE) #Verteilungsvergleich
@@ -763,7 +763,7 @@ write.csv2(donor, paste(daten,"/ergebnisse/3_donor_20k.csv", sep = ""))
 {if(nlevels(donor$bis5000euro) == nlevels(recipient$bis5000euro)){
   
   
-  tt.R <- xtabs(~ bis5000euro, data = recipient) #Empfänger
+  tt.R <- xtabs(~ bis5000euro, data = recipient) #EmpfÃ¤nger
   tt.D <- xtabs(~ bis5000euro, data = donor) #Spender 
   
   comp_a <- StatMatch::comp.prop(p1=tt.R, p2=tt.D, n1 = nrow(recipient), n2 = nrow(donor), ref = FALSE) #Verteilungsvergleich
@@ -776,7 +776,7 @@ write.csv2(donor, paste(daten,"/ergebnisse/3_donor_20k.csv", sep = ""))
 {if(nlevels(donor$bis8000euro) == nlevels(recipient$bis8000euro)){
   
   
-  tt.R <- xtabs(~ bis8000euro, data = recipient) #Empfänger
+  tt.R <- xtabs(~ bis8000euro, data = recipient) #EmpfÃ¤nger
   tt.D <- xtabs(~ bis8000euro, data = donor) #Spender 
   
   comp_a <- StatMatch::comp.prop(p1=tt.R, p2=tt.D, n1 = nrow(recipient), n2 = nrow(donor), ref = FALSE) #Verteilungsvergleich
@@ -788,7 +788,7 @@ write.csv2(donor, paste(daten,"/ergebnisse/3_donor_20k.csv", sep = ""))
 {if(nlevels(donor$bis16000euro) == nlevels(recipient$bis16000euro)){
   
   
-  tt.R <- xtabs(~ bis16000euro, data = recipient) #Empfänger
+  tt.R <- xtabs(~ bis16000euro, data = recipient) #EmpfÃ¤nger
   tt.D <- xtabs(~ bis16000euro, data = donor) #Spender 
   
   comp_a <- StatMatch::comp.prop(p1=tt.R, p2=tt.D, n1 = nrow(recipient), n2 = nrow(donor), ref = FALSE) #Verteilungsvergleich
@@ -800,7 +800,7 @@ write.csv2(donor, paste(daten,"/ergebnisse/3_donor_20k.csv", sep = ""))
 {if(nlevels(donor$Fahrtrichtung_angegeben) == nlevels(recipient$Fahrtrichtung_angegeben)){
   
   
-  tt.R <- xtabs(~ Fahrtrichtung_angegeben, data = recipient) #Empfänger
+  tt.R <- xtabs(~ Fahrtrichtung_angegeben, data = recipient) #EmpfÃ¤nger
   tt.D <- xtabs(~ Fahrtrichtung_angegeben, data = donor) #Spender 
   
   comp_a <- StatMatch::comp.prop(p1=tt.R, p2=tt.D, n1 = nrow(recipient), n2 = nrow(donor), ref = FALSE) #Verteilungsvergleich
@@ -812,7 +812,7 @@ write.csv2(donor, paste(daten,"/ergebnisse/3_donor_20k.csv", sep = ""))
 {if(nlevels(donor$autobahn) == nlevels(recipient$autobahn)){
   
   
-  tt.R <- xtabs(~ autobahn, data = recipient) #Empfänger
+  tt.R <- xtabs(~ autobahn, data = recipient) #EmpfÃ¤nger
   tt.D <- xtabs(~ autobahn, data = donor) #Spender 
   
   comp_a <- StatMatch::comp.prop(p1=tt.R, p2=tt.D, n1 = nrow(recipient), n2 = nrow(donor), ref = FALSE) #Verteilungsvergleich
@@ -824,7 +824,7 @@ write.csv2(donor, paste(daten,"/ergebnisse/3_donor_20k.csv", sep = ""))
 {if(nlevels(donor$bundesstrasse) == nlevels(recipient$bundesstrasse)){
   
   
-  tt.R <- xtabs(~ bundesstrasse, data = recipient) #Empfänger
+  tt.R <- xtabs(~ bundesstrasse, data = recipient) #EmpfÃ¤nger
   tt.D <- xtabs(~ bundesstrasse, data = donor) #Spender 
   
   comp_a <- StatMatch::comp.prop(p1=tt.R, p2=tt.D, n1 = nrow(recipient), n2 = nrow(donor), ref = FALSE) #Verteilungsvergleich
@@ -836,7 +836,7 @@ write.csv2(donor, paste(daten,"/ergebnisse/3_donor_20k.csv", sep = ""))
 {if(nlevels(donor$landesstrasse) == nlevels(recipient$landesstrasse)){
   
   
-  tt.R <- xtabs(~ landesstrasse, data = recipient) #Empfänger
+  tt.R <- xtabs(~ landesstrasse, data = recipient) #EmpfÃ¤nger
   tt.D <- xtabs(~ landesstrasse, data = donor) #Spender 
   
   comp_a <- StatMatch::comp.prop(p1=tt.R, p2=tt.D, n1 = nrow(recipient), n2 = nrow(donor), ref = FALSE) #Verteilungsvergleich
@@ -848,7 +848,7 @@ write.csv2(donor, paste(daten,"/ergebnisse/3_donor_20k.csv", sep = ""))
 {if(nlevels(donor$kreisstrasse) == nlevels(recipient$kreisstrasse)){
   
   
-  tt.R <- xtabs(~ kreisstrasse, data = recipient) #Empfänger
+  tt.R <- xtabs(~ kreisstrasse, data = recipient) #EmpfÃ¤nger
   tt.D <- xtabs(~ kreisstrasse, data = donor) #Spender 
   
   comp_a <- StatMatch::comp.prop(p1=tt.R, p2=tt.D, n1 = nrow(recipient), n2 = nrow(donor), ref = FALSE) #Verteilungsvergleich
@@ -860,7 +860,7 @@ write.csv2(donor, paste(daten,"/ergebnisse/3_donor_20k.csv", sep = ""))
 {if(nlevels(donor$unfallart_1) == nlevels(recipient$unfallart_1)){
   
   
-  tt.R <- xtabs(~ unfallart_1, data = recipient) #Empfänger
+  tt.R <- xtabs(~ unfallart_1, data = recipient) #EmpfÃ¤nger
   tt.D <- xtabs(~ unfallart_1, data = donor) #Spender 
   
   comp_a <- StatMatch::comp.prop(p1=tt.R, p2=tt.D, n1 = nrow(recipient), n2 = nrow(donor), ref = FALSE) #Verteilungsvergleich
@@ -872,7 +872,7 @@ write.csv2(donor, paste(daten,"/ergebnisse/3_donor_20k.csv", sep = ""))
 {if(nlevels(donor$unfallart_2) == nlevels(recipient$unfallart_2)){
   
   
-  tt.R <- xtabs(~ unfallart_2, data = recipient) #Empfänger
+  tt.R <- xtabs(~ unfallart_2, data = recipient) #EmpfÃ¤nger
   tt.D <- xtabs(~ unfallart_2, data = donor) #Spender 
   
   comp_a <- StatMatch::comp.prop(p1=tt.R, p2=tt.D, n1 = nrow(recipient), n2 = nrow(donor), ref = FALSE) #Verteilungsvergleich
@@ -884,7 +884,7 @@ write.csv2(donor, paste(daten,"/ergebnisse/3_donor_20k.csv", sep = ""))
 {if(nlevels(donor$unfallart_3) == nlevels(recipient$unfallart_3)){
   
   
-  tt.R <- xtabs(~ unfallart_3, data = recipient) #Empfänger
+  tt.R <- xtabs(~ unfallart_3, data = recipient) #EmpfÃ¤nger
   tt.D <- xtabs(~ unfallart_3, data = donor) #Spender 
   
   comp_a <- StatMatch::comp.prop(p1=tt.R, p2=tt.D, n1 = nrow(recipient), n2 = nrow(donor), ref = FALSE) #Verteilungsvergleich
@@ -896,7 +896,7 @@ write.csv2(donor, paste(daten,"/ergebnisse/3_donor_20k.csv", sep = ""))
 {if(nlevels(donor$unfallart_4) == nlevels(recipient$unfallart_4)){
   
   
-  tt.R <- xtabs(~ unfallart_4, data = recipient) #Empfänger
+  tt.R <- xtabs(~ unfallart_4, data = recipient) #EmpfÃ¤nger
   tt.D <- xtabs(~ unfallart_4, data = donor) #Spender 
   
   comp_a <- StatMatch::comp.prop(p1=tt.R, p2=tt.D, n1 = nrow(recipient), n2 = nrow(donor), ref = FALSE) #Verteilungsvergleich
@@ -908,7 +908,7 @@ write.csv2(donor, paste(daten,"/ergebnisse/3_donor_20k.csv", sep = ""))
 {if(nlevels(donor$unfallart_5) == nlevels(recipient$unfallart_5)){
   
   
-  tt.R <- xtabs(~ unfallart_5, data = recipient) #Empfänger
+  tt.R <- xtabs(~ unfallart_5, data = recipient) #EmpfÃ¤nger
   tt.D <- xtabs(~ unfallart_5, data = donor) #Spender 
   
   comp_a <- StatMatch::comp.prop(p1=tt.R, p2=tt.D, n1 = nrow(recipient), n2 = nrow(donor), ref = FALSE) #Verteilungsvergleich
@@ -920,7 +920,7 @@ write.csv2(donor, paste(daten,"/ergebnisse/3_donor_20k.csv", sep = ""))
 {if(nlevels(donor$unfallart_6) == nlevels(recipient$unfallart_6)){
   
   
-  tt.R <- xtabs(~ unfallart_6, data = recipient) #Empfänger
+  tt.R <- xtabs(~ unfallart_6, data = recipient) #EmpfÃ¤nger
   tt.D <- xtabs(~ unfallart_6, data = donor) #Spender 
   
   comp_a <- StatMatch::comp.prop(p1=tt.R, p2=tt.D, n1 = nrow(recipient), n2 = nrow(donor), ref = FALSE) #Verteilungsvergleich
@@ -932,7 +932,7 @@ write.csv2(donor, paste(daten,"/ergebnisse/3_donor_20k.csv", sep = ""))
 {if(nlevels(donor$unfallart_7) == nlevels(recipient$unfallart_7)){
   
   
-  tt.R <- xtabs(~ unfallart_7, data = recipient) #Empfänger
+  tt.R <- xtabs(~ unfallart_7, data = recipient) #EmpfÃ¤nger
   tt.D <- xtabs(~ unfallart_7, data = donor) #Spender 
   
   comp_a <- StatMatch::comp.prop(p1=tt.R, p2=tt.D, n1 = nrow(recipient), n2 = nrow(donor), ref = FALSE) #Verteilungsvergleich
@@ -944,7 +944,7 @@ write.csv2(donor, paste(daten,"/ergebnisse/3_donor_20k.csv", sep = ""))
 {if(nlevels(donor$unfallart_8) == nlevels(recipient$unfallart_8)){
   
   
-  tt.R <- xtabs(~ unfallart_8, data = recipient) #Empfänger
+  tt.R <- xtabs(~ unfallart_8, data = recipient) #EmpfÃ¤nger
   tt.D <- xtabs(~ unfallart_8, data = donor) #Spender 
   
   comp_a <- StatMatch::comp.prop(p1=tt.R, p2=tt.D, n1 = nrow(recipient), n2 = nrow(donor), ref = FALSE) #Verteilungsvergleich
@@ -956,7 +956,7 @@ write.csv2(donor, paste(daten,"/ergebnisse/3_donor_20k.csv", sep = ""))
 {if(nlevels(donor$unfallart_9) == nlevels(recipient$unfallart_9)){
   
   
-  tt.R <- xtabs(~ unfallart_9, data = recipient) #Empfänger
+  tt.R <- xtabs(~ unfallart_9, data = recipient) #EmpfÃ¤nger
   tt.D <- xtabs(~ unfallart_9, data = donor) #Spender 
   
   comp_a <- StatMatch::comp.prop(p1=tt.R, p2=tt.D, n1 = nrow(recipient), n2 = nrow(donor), ref = FALSE) #Verteilungsvergleich
